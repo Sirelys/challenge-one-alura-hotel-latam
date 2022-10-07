@@ -1,24 +1,20 @@
 package views;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import ui.HuespedTableModel;
+import ui.ReservaTableModel;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.Color;
-import java.awt.SystemColor;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import java.awt.Toolkit;
 import javax.swing.SwingConstants;
@@ -36,7 +32,7 @@ public class Busqueda extends JFrame {
 	private JTextField txtBuscar;
 	protected JTable tbHuespedes;
 	private JTable tbReservas;
-	private DefaultTableModel modelo;
+	private ReservaTableModel modelo;
 	private JLabel labelAtras;
 	private JLabel labelExit;
 	int xMouse, yMouse;
@@ -84,18 +80,16 @@ public class Busqueda extends JFrame {
 		tbReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
 		panel.addTab("Reservas", new ImageIcon(Busqueda.class.getResource("/imagenes/reservado.png")), jScrollPane, null);
-		modelo = (DefaultTableModel) tbReservas.getModel();
-		modelo.addColumn("Numero de Reserva");
-		modelo.addColumn("Fecha Check In");
-		modelo.addColumn("Fecha Check Out");
-		modelo.addColumn("Valor");
-		modelo.addColumn("Forma de Pago");
+	    modelo= new ReservaTableModel();
+		tbReservas.setModel(modelo);
 		
 		
+		JScrollPane jScrollPaneH = new JScrollPane();
 		tbHuespedes = new JTable();
+		jScrollPaneH.setViewportView(tbHuespedes);
 		tbHuespedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbHuespedes.setFont(new Font("Roboto", Font.PLAIN, 16));
-		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), tbHuespedes, null);
+		panel.addTab("Huéspedes", new ImageIcon(Busqueda.class.getResource("/imagenes/pessoas.png")), jScrollPaneH, null);
 		tbHuespedes.setModel(new HuespedTableModel());
 		
 		JScrollPane scrollPane = new JScrollPane();
