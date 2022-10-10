@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import conexion.ConexionMysql;
+import modelos.Reserva;
 
 
 public class DatosReserva {
@@ -19,7 +23,10 @@ public class DatosReserva {
 	 * accede a la base de datos y devuelve una lista de reservas
 	 * @return
 	 */
-	public List listarReservas() {
+	public List<Reserva> listarReservas() {
+		
+		List<Reserva> listaReservas = new ArrayList<Reserva>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 		//obtiene la conexion a base de datos
 		ConexionMysql conexionMysql = new ConexionMysql();
 		//ejecuta el metodo conectar y almacena el objeto que devuelve el metodo conexion
@@ -37,18 +44,23 @@ public class DatosReserva {
 				System.out.println(resultSet.getString("FechaSalida"));
 				System.out.println(resultSet.getString("Valor"));
 				System.out.println(resultSet.getString("FormaPago"));
-				System.out.println("****");
+			
+				
+				Reserva reserva = new Reserva(resultSet.getInt("id"),
+						LocalDate.parse(resultSet.getString("FechaEntrada"),formatter),
+						LocalDate.parse(resultSet.getString("FechaSalida"),formatter),
+						resultSet.getDouble("Valor"),
+						resultSet.getString("FormaPago"));
+				
+				listaReservas.add(reserva);
 			}
-			
-			
-			
+					
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return null;
-		
-		
+		return listaReservas;
+				
 	}
 	
 	public static void main(String[] args) {

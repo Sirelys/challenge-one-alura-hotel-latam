@@ -35,6 +35,19 @@ public class ReservaTableModel extends AbstractTableModel {
 	
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
+		switch (columnIndex) {
+		case 0:
+			return listaReservas.get(rowIndex).getId();
+		case 1:
+			return listaReservas.get(rowIndex).getFechaEntrada();
+		case 2:
+			return listaReservas.get(rowIndex).getFechaSalida();
+		case 3:
+			return listaReservas.get(rowIndex).getValor();
+		case 4:
+			return listaReservas.get(rowIndex).getFormaPago();
+			
+		}
 		return null;
 	}
 	

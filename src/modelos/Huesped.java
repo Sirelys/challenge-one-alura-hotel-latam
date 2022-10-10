@@ -9,7 +9,16 @@ public class Huesped {
 	private String apellido;
 	private LocalDate fechaNacimiento;
 	private String nacionalidad;
-	private int telefono;
+	private int telefono;	
+
+	public Huesped(int id, String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad, int telefono) {
+		this.id = id;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+	}
 
 	public void setInt(int id) {
 		this.id = id;

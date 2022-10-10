@@ -31,7 +31,7 @@ public class Busqueda extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtBuscar;
 	protected JTable tbHuespedes;
-	private JTable tbReservas;
+	protected JTable tbReservas;
 	private ReservaTableModel modelo;
 	private JLabel labelAtras;
 	private JLabel labelExit;

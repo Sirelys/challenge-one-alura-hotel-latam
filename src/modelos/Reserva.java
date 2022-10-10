@@ -9,6 +9,14 @@ public class Reserva {
 	private LocalDate fechaSalida;
 	private double valor;
 	private String formaPago;
+	
+	public Reserva(int id, LocalDate fechaEntrada,LocalDate fechaSalida , double valor, String formaPago) {
+		this.id = id;
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.valor = valor;
+		this.formaPago = formaPago;
+	}
 
 	public void setId(int id) {
 		this.id = id;

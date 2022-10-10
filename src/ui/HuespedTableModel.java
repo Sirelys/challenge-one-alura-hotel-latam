@@ -35,6 +35,22 @@ public class HuespedTableModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
+		 switch (columnIndex) {
+		case 0:
+			return listaHuespeds.get(rowIndex).getId();
+		case 1:
+			return listaHuespeds.get(rowIndex).getNombre();
+		case 2:
+			return listaHuespeds.get(rowIndex).getApellido();
+		case 3:
+			return listaHuespeds.get(rowIndex).getFechaNacimiento();
+		case 4:
+			return listaHuespeds.get(rowIndex).getNacionalidad();
+		case 5:
+			return listaHuespeds.get(rowIndex).getTelefono();
+
+		}
+		
 		return null;
 	}
 	
@@ -42,4 +58,6 @@ public class HuespedTableModel extends AbstractTableModel {
 		this.listaHuespeds = listaHuespeds;
 	}
 
+	
 }
+

@@ -4,9 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import conexion.ConexionMysql;
+import modelos.Huesped;
 
 
 public class DatosHuesped {
@@ -15,7 +19,10 @@ public class DatosHuesped {
 	private Connection conexion ;
 	private PreparedStatement preparedStatement;
 	
-	public List listarHuespedes() {
+	public List<Huesped> listarHuespedes() {
+		
+		List<Huesped> listaHuespeds = new ArrayList<Huesped>();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 		
 		ConexionMysql conexionMsql = new ConexionMysql();
 		conexion = conexionMsql.conexion();
@@ -32,11 +39,20 @@ public class DatosHuesped {
 				System.out.println(resultSet.getString("FechaNacimiento"));
 				System.out.println(resultSet.getString("Nacionalidad"));
 				System.out.println(resultSet.getString("Telefono"));
+				
+				Huesped huesped = new Huesped(resultSet.getInt("id"), 
+									   resultSet.getString("Nombre"), 
+									 resultSet.getString("Apellido"), 
+						      LocalDate.parse(resultSet.getString("FechaNacimiento"), formatter) , 
+						         resultSet.getString("Nacionalidad"), 
+						             resultSet.getInt("Telefono"));
+				
+				listaHuespeds.add(huesped);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return listaHuespeds;
 		
 	}
 	public static void main(String[] args) {
