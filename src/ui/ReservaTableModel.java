@@ -55,4 +55,7 @@ public class ReservaTableModel extends AbstractTableModel {
 		this.listaReservas = listaReservas;
 	}
 
+	public List<Reserva> getListaReservas() {
+		return listaReservas;
+	}
 }

@@ -35,6 +35,8 @@ public class Busqueda extends JFrame {
 	private ReservaTableModel modelo;
 	private JLabel labelAtras;
 	private JLabel labelExit;
+	protected JTabbedPane panel;
+	protected JLabel lblEliminar;
 	int xMouse, yMouse;
 
 	
@@ -66,7 +68,7 @@ public class Busqueda extends JFrame {
 		lblNewLabel_4.setBounds(331, 62, 280, 42);
 		contentPane.add(lblNewLabel_4);
 		
-		JTabbedPane panel = new JTabbedPane(JTabbedPane.TOP);
+		panel = new JTabbedPane(JTabbedPane.TOP);
 		panel.setBackground(new Color(12, 138, 199));
 		panel.setFont(new Font("Roboto", Font.PLAIN, 16));
 		panel.setBounds(20, 169, 865, 328);
@@ -228,7 +230,7 @@ public class Busqueda extends JFrame {
 		btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnEliminar);
 		
-		JLabel lblEliminar = new JLabel("ELIMINAR");
+		lblEliminar = new JLabel("ELIMINAR");
 		lblEliminar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblEliminar.setForeground(Color.WHITE);
 		lblEliminar.setFont(new Font("Roboto", Font.PLAIN, 18));

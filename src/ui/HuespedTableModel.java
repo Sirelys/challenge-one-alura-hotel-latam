@@ -58,6 +58,9 @@ public class HuespedTableModel extends AbstractTableModel {
 		this.listaHuespeds = listaHuespeds;
 	}
 
+	public List<Huesped> getListaHuespeds() {
+		return listaHuespeds;
+	}
 	
 }
 
