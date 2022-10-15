@@ -8,8 +8,16 @@ public class Reserva {
 	private LocalDate fechaEntrada;
 	private LocalDate fechaSalida;
 	private double valor;
-	private String formaPago;
+	private String formaPago;	
 	
+	public Reserva(LocalDate fechaEntrada, LocalDate fechaSalida, double valor, String formaPago) {
+		super();
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.valor = valor;
+		this.formaPago = formaPago;
+	}
+
 	public Reserva(int id, LocalDate fechaEntrada,LocalDate fechaSalida , double valor, String formaPago) {
 		this.id = id;
 		this.fechaEntrada = fechaEntrada;
@@ -58,5 +66,5 @@ public class Reserva {
 	public String getFormaPago() {
 		return formaPago;
 	}
-
+	
 }

@@ -1,11 +1,11 @@
 package views;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Panel;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
@@ -22,7 +22,7 @@ public class MenuPrincipal extends JFrame {
 	private JPanel contentPane;
 	private JLabel labelExit;
 	int xMouse, yMouse;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -39,10 +39,11 @@ public class MenuPrincipal extends JFrame {
 		});
 	}
 
+
 	/**
 	 * Create the frame.
 	 */
-	public MenuPrincipal() {
+	protected MenuPrincipal() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenuPrincipal.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 910, 537);

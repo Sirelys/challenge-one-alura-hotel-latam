@@ -31,16 +31,7 @@ public class DatosHuesped {
 			preparedStatement = conexion.prepareStatement("select * from huespedes");
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
-				System.out.println("******");
-				System.out.println(resultSet.getInt("id"));
-				System.out.println(resultSet.getString("Nombre"));
-				System.out.println(resultSet.getString("Apellido"));
-				System.out.println(resultSet.getString("FechaNacimiento"));
-				System.out.println(resultSet.getString("Nacionalidad"));
-				System.out.println(resultSet.getString("Telefono"));
-
 				Huesped huesped = crearHuesped(resultSet);
-
 				listaHuespeds.add(huesped);
 			}
 		} catch (SQLException e) {
@@ -74,7 +65,7 @@ public class DatosHuesped {
 	public boolean eliminarHuespedId(int id) {
 		Connection connection = new ConexionMysql().conexion();
 		try {
-			preparedStatement = connection.prepareStatement("DELETE FROM hotel.reservas WHERE Id=?");
+			preparedStatement = connection.prepareStatement("DELETE FROM hotel.huespedes WHERE Id=?");
 			preparedStatement.setInt(1, id);
 			preparedStatement.execute();
 			return true;
@@ -83,6 +74,25 @@ public class DatosHuesped {
 		}
 		return false;
 		
+	}
+	
+	public boolean guardarHuesped(Huesped huesped) {
+		Connection connection = new ConexionMysql().conexion();
+		try {
+			preparedStatement = connection.prepareStatement("INSERT INTO hotel.huespedes(Nombre, Apellido, FechaNacimiento, Nacionalidad, Telefono, IdReserva)"
+					+ "VALUES(?, ?, ?, ?, ?, ?)");
+			preparedStatement.setString(1, huesped.getNombre());
+			preparedStatement.setString(2, huesped.getApellido());
+			preparedStatement.setString(3, formatter.format(huesped.getFechaNacimiento()));
+			preparedStatement.setString(4, huesped.getNacionalidad());
+			preparedStatement.setInt(5, huesped.getTelefono());
+			preparedStatement.setInt(6, huesped.getReserva().getId());
+			preparedStatement.execute();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	private Huesped crearHuesped(ResultSet resultSet) {

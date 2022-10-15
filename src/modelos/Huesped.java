@@ -9,7 +9,8 @@ public class Huesped {
 	private String apellido;
 	private LocalDate fechaNacimiento;
 	private String nacionalidad;
-	private int telefono;	
+	private int telefono;
+	private Reserva reserva;
 
 	public Huesped(int id, String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad, int telefono) {
 		this.id = id;
@@ -19,6 +20,21 @@ public class Huesped {
 		this.nacionalidad = nacionalidad;
 		this.telefono = telefono;
 	}
+	
+	
+
+	public Huesped(String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad, int telefono,
+			Reserva reserva) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.fechaNacimiento = fechaNacimiento;
+		this.nacionalidad = nacionalidad;
+		this.telefono = telefono;
+		this.reserva = reserva;
+	}
+
+
 
 	public void setInt(int id) {
 		this.id = id;
@@ -66,5 +82,13 @@ public class Huesped {
 
 	public int getTelefono() {
 		return telefono;
+	}
+	
+	public Reserva getReserva() {
+		return reserva;
+	}
+	
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 }
