@@ -5,6 +5,15 @@
 </p>
 
 ---
+##  Instrucciones de uso de la Aplicación Hotel Alura:
+
+
+#### 🔹 Login: Usuario: admin, contraseña:admin
+#### 🔹 Para eliminar o editar, primero se debe seleccionar el registro de la tabla. 
+#### 🔹 Para realizar busquedas se debe ingresar Id y clic en el botón buscar.
+#### 🔹 Se edita por pantalla separada.
+</br>
+
 ##  Primeros Pasos:
 
 
