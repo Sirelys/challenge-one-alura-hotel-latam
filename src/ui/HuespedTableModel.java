@@ -32,7 +32,7 @@ public class HuespedTableModel extends AbstractTableModel {
 	public String getColumnName(int column) {
 		return HEADER[column];
 	}
-	
+		
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		 switch (columnIndex) {

@@ -41,15 +41,13 @@ public class DatosReserva {
 			while(resultSet.next()) {			
 				Reserva reserva = crearReserva(resultSet);							
 				listaReservas.add(reserva);
-			}
-					
+			}					
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		
-		return listaReservas;
-				
+		}		
+		return listaReservas;				
 	}
+	
 	public Reserva buscarReservaId(int id) {
 		Connection connection = new ConexionMysql().conexion();
 		Reserva reserva =null;
@@ -118,6 +116,40 @@ public class DatosReserva {
 		}
 		return null;
 	} 
+	
+	public boolean editarReserva(Reserva reserva) {
+		this.conexion = new ConexionMysql().conexion();
+		try {
+			preparedStatement = this.conexion.prepareStatement("UPDATE hotel.reservas SET FechaEntrada=?, FechaSalida=?, Valor=?, FormaPago=? WHERE Id=?");
+			preparedStatement.setString(1, formatter.format(reserva.getFechaEntrada()));
+			preparedStatement.setString(2, formatter.format(reserva.getFechaSalida()));
+			preparedStatement.setDouble(3,reserva.getValor());
+			preparedStatement.setString(4,reserva.getFormaPago());
+			preparedStatement.setInt(5, reserva.getId());
+			preparedStatement.executeUpdate();
+			return true;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return false;		
+	}
+	
+	public List<Reserva> filtroReserva(String filtro){
+		this.conexion = new ConexionMysql().conexion();
+		List<Reserva> listaReservas = new ArrayList<Reserva>();
+		try {
+			preparedStatement = this.conexion.prepareStatement("SELECT x.* FROM hotel.reservas x where x.Id like '"+filtro+"%'");
+			ResultSet rs = preparedStatement.executeQuery();
+			while (rs.next()) {
+				listaReservas.add(crearReserva(rs));
+			}
+			return listaReservas;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	private Reserva crearReserva(ResultSet resultSet) {
 		try {

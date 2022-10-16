@@ -25,6 +25,7 @@ public class MenuUsuario extends JFrame {
 	private JLabel labelExit;
 	protected JLabel labelRegistro;
 	protected JPanel btnRegistro;
+	protected JPanel btnBusqueda;
 
 
 
@@ -84,23 +85,8 @@ public class MenuUsuario extends JFrame {
 		labelRegistro.setHorizontalAlignment(SwingConstants.LEFT);
 		btnRegistro.add(labelRegistro);
 		
-		JPanel btnBusqueda = new JPanel();
-		btnBusqueda.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnBusqueda.setBackground(new Color(118, 187, 223));				
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnBusqueda.setBackground(new Color(12, 138, 199));	
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Busqueda busqueda = new Busqueda();
-				busqueda.setVisible(true);
-				dispose();
-			}
-		});
+		btnBusqueda = new JPanel();
+		
 		btnBusqueda.setBounds(0, 312, 257, 56);
 		btnBusqueda.setBackground(new Color(12, 138, 199));
 		panelMenu.add(btnBusqueda);

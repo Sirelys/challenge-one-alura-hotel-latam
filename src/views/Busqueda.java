@@ -29,14 +29,17 @@ import javax.swing.JScrollPane;
 public class Busqueda extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtBuscar;
+	protected JTextField txtBuscar;
 	protected JTable tbHuespedes;
 	protected JTable tbReservas;
 	private ReservaTableModel modelo;
-	private JLabel labelAtras;
+	protected JLabel labelAtras;
 	private JLabel labelExit;
 	protected JTabbedPane panel;
 	protected JLabel lblEliminar;
+	protected JPanel btnAtras;
+	protected JPanel btnEditar;
+	protected JPanel btnbuscar;
 	int xMouse, yMouse;
 
 	
@@ -122,25 +125,7 @@ public class Busqueda extends JFrame {
 		header.setBounds(0, 0, 910, 36);
 		contentPane.add(header);
 		
-		JPanel btnAtras = new JPanel();
-		btnAtras.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				MenuUsuario usuario = new MenuUsuario();
-				usuario.setVisible(true);
-				dispose();				
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnAtras.setBackground(new Color(12, 138, 199));
-				labelAtras.setForeground(Color.white);
-			}			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				 btnAtras.setBackground(Color.white);
-			     labelAtras.setForeground(Color.black);
-			}
-		});
+		btnAtras = new JPanel();		
 		btnAtras.setLayout(null);
 		btnAtras.setBackground(Color.WHITE);
 		btnAtras.setBounds(0, 0, 53, 36);
@@ -189,13 +174,8 @@ public class Busqueda extends JFrame {
 		separator_1_2.setBounds(539, 159, 193, 2);
 		contentPane.add(separator_1_2);
 		
-		JPanel btnbuscar = new JPanel();
-		btnbuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-			}
-		});
+		btnbuscar = new JPanel();
+		
 		btnbuscar.setLayout(null);
 		btnbuscar.setBackground(new Color(12, 138, 199));
 		btnbuscar.setBounds(748, 125, 122, 35);
@@ -209,7 +189,7 @@ public class Busqueda extends JFrame {
 		lblBuscar.setForeground(Color.WHITE);
 		lblBuscar.setFont(new Font("Roboto", Font.PLAIN, 18));
 		
-		JPanel btnEditar = new JPanel();
+		btnEditar = new JPanel();
 		btnEditar.setLayout(null);
 		btnEditar.setBackground(new Color(12, 138, 199));
 		btnEditar.setBounds(635, 508, 122, 35);

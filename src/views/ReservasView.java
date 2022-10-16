@@ -11,6 +11,9 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+
+import controlsviews.ControlMenuUsuario;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -35,10 +38,11 @@ public class ReservasView extends JFrame {
 	protected JDateChooser txtFechaS;
 	protected JComboBox<Format> txtFormaPago;
 	protected JPanel btnsiguiente;
+	protected JLabel lblSiguiente;
 	int xMouse, yMouse;
 	private JLabel labelExit;
 	private JLabel lblValorSimbolo; 
-	private JLabel labelAtras;
+	protected JLabel labelAtras;
 
 
 	/**
@@ -100,7 +104,7 @@ public class ReservasView extends JFrame {
 		
 		lblValorSimbolo = new JLabel("$");
 		lblValorSimbolo.setVisible(false);
-		lblValorSimbolo.setBounds(121, 332, 17, 25);
+		lblValorSimbolo.setBounds(340, 332, 17, 25);
 		lblValorSimbolo.setForeground(SystemColor.textHighlight);
 		lblValorSimbolo.setFont(new Font("Roboto", Font.BOLD, 17));
 		
@@ -141,7 +145,7 @@ public class ReservasView extends JFrame {
 		txtValor.setBackground(SystemColor.text);
 		txtValor.setHorizontalAlignment(SwingConstants.CENTER);
 		txtValor.setForeground(Color.BLACK);
-		txtValor.setBounds(78, 328, 43, 33);
+		txtValor.setBounds(68, 328, 262, 33);
 		txtValor.setEditable(true);
 		txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
 		txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -245,8 +249,7 @@ public class ReservasView extends JFrame {
 		btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				MenuUsuario usuario = new MenuUsuario();
-				usuario.setVisible(true);
+				new ControlMenuUsuario().setVisible(true);
 				dispose();				
 			}
 			@Override
@@ -285,7 +288,7 @@ public class ReservasView extends JFrame {
 		panel.add(btnsiguiente);
 		btnsiguiente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		
-		JLabel lblSiguiente = new JLabel("SIGUIENTE");
+		lblSiguiente = new JLabel("SIGUIENTE");
 		lblSiguiente.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSiguiente.setForeground(Color.WHITE);
 		lblSiguiente.setFont(new Font("Roboto", Font.PLAIN, 18));

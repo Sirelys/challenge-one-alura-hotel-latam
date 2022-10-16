@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import views.Busqueda;
 import views.MenuUsuario;
 import views.ReservasView;
 
@@ -32,6 +33,23 @@ public class ControlMenuUsuario extends MenuUsuario {
 			public void mouseClicked(MouseEvent e) {
 				ControlReserva reservas = new ControlReserva();
 				reservas.setVisible(true);
+				dispose();
+			}
+		});
+		
+		btnBusqueda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnBusqueda.setBackground(new Color(118, 187, 223));				
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnBusqueda.setBackground(new Color(12, 138, 199));	
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControlSearch busqueda = new ControlSearch();
+				busqueda.setVisible(true);
 				dispose();
 			}
 		});

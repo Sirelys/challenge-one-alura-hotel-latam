@@ -1,5 +1,6 @@
 package controlsviews;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -14,6 +15,7 @@ import modelos.Reserva;
 import ui.HuespedTableModel;
 import ui.ReservaTableModel;
 import views.Busqueda;
+import views.MenuUsuario;
 
 public class ControlSearch extends Busqueda {
 
@@ -43,6 +45,72 @@ public class ControlSearch extends Busqueda {
 				}
 			}
 		});
+		btnAtras.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ControlMenuUsuario usuario = new ControlMenuUsuario();
+				usuario.setVisible(true);
+				dispose();				
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnAtras.setBackground(new Color(12, 138, 199));
+				labelAtras.setForeground(Color.white);
+			}			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				 btnAtras.setBackground(Color.white);
+			     labelAtras.setForeground(Color.black);
+			}
+		});
+		
+		btnEditar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					if (panel.getSelectedIndex() == 0) {
+						dispose();
+						new ControlReserva(reservaSeleccionada()).setVisible(true);						
+					}
+					
+					if (panel.getSelectedIndex() == 1) {
+						dispose();
+						new ControlRegistroHuesped(huespedSeleccionado()).setVisible(true);						
+					}
+				}
+			}
+		});
+		btnbuscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(!txtBuscar.getText().isEmpty()) {
+					if (panel.getSelectedIndex() == 0) {
+						limpiarTablaReserva();
+						agregarDatosTablaReservaFiltro();
+					}
+					
+					if (panel.getSelectedIndex() == 1) {
+						limpiarTablaHuesped();
+						agregarDatosTablaHuespedFiltro();
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Ingrese el valor del filtro");
+					txtBuscar.requestFocus();
+				}
+			}
+		});
+	}
+	
+	private Reserva reservaSeleccionada() {
+		int rowSelected = tbReservas.getSelectedRow(); 
+		ReservaTableModel model = (ReservaTableModel) tbReservas.getModel();
+		return model.getListaReservas().get(rowSelected);
+	}
+	
+	private Huesped huespedSeleccionado() {
+		int rowSelected = tbHuespedes.getSelectedRow(); 
+		HuespedTableModel model = (HuespedTableModel) tbHuespedes.getModel();
+		return model.getListaHuespeds().get(rowSelected);
 	}
 
 	private void agregarDatosTablaHuesped() {
@@ -58,7 +126,8 @@ public class ControlSearch extends Busqueda {
 		HuespedTableModel model = (HuespedTableModel) tbHuespedes.getModel();
 		model.getListaHuespeds().clear();
 		tbHuespedes.setModel(model);
-		tbHuespedes.removeAll();
+		tbHuespedes.repaint();
+		tbHuespedes.updateUI();
 	}
 
 	private void eliminarHuesped() {
@@ -70,30 +139,23 @@ public class ControlSearch extends Busqueda {
 		int id = Integer.parseInt(tbHuespedes.getValueAt(row, 0).toString());
 		int opcion = JOptionPane.showConfirmDialog(null,
 				"¿Deseas eliminar el huesped seleccionado?\nSe eliminará el huesped y su reserva");
-		System.out.println(opcion);
 		if (opcion == 0) {
 			if (datosHuesped.eliminarHuespedId(id)) {
 				JOptionPane.showMessageDialog(null, "Huesped eliminado correctamente");
 				limpiarTablaHuesped();
 				agregarDatosTablaHuesped();
-				
-
 			} else {
 				JOptionPane.showMessageDialog(null, "Error al eliminar huesped");
 			}
 		}
 	}
 
-	public static void main(String[] args) {
-		new ControlSearch().setVisible(true);
-	}
-
 	private void limpiarTablaReserva() {
 		ReservaTableModel model = (ReservaTableModel) tbReservas.getModel();
 		model.getListaReservas().clear();
 		tbReservas.setModel(model);
-		tbReservas.removeAll();
 		tbReservas.repaint();
+		tbReservas.updateUI();
 	}
 
 	private void agregarDatosTablaReserva() {
@@ -104,6 +166,24 @@ public class ControlSearch extends Busqueda {
 		tbReservas.setModel(model);
 
 	}
+	
+	private void agregarDatosTablaReservaFiltro() {
+		this.reservas = datosReserva.filtroReserva(txtBuscar.getText());
+
+		ReservaTableModel model = (ReservaTableModel) tbReservas.getModel();
+		model.setListaReservas(reservas);
+		tbReservas.setModel(model);
+
+	}
+	private void agregarDatosTablaHuespedFiltro() {
+		this.huespeds = datosHuesped.filtroHuesped(txtBuscar.getText());
+
+		HuespedTableModel model = (HuespedTableModel) tbHuespedes.getModel();
+		model.setListaHuespeds(huespeds);
+		tbHuespedes.setModel(model);
+
+	}
+	
 
 	private void eliminarReserva() {
 		int row = tbReservas.getSelectedRow();
@@ -114,12 +194,11 @@ public class ControlSearch extends Busqueda {
 		int id = Integer.parseInt(tbReservas.getValueAt(row, 0).toString());
 		int opcion = JOptionPane.showConfirmDialog(null,
 				"¿Deseas eliminar la reserva seleccionada?\nSe eliminará la reserva");
-		System.out.println(opcion);
 		if (opcion == 0) {
 			if (datosReserva.eliminarReservaId(id)) {
 				JOptionPane.showMessageDialog(null, "Reserva eliminado correctamente");
-				agregarDatosTablaReserva();
 				limpiarTablaReserva();
+				agregarDatosTablaReserva();		
 
 			} else {
 				JOptionPane.showMessageDialog(null, "Error al eliminar la reserva");

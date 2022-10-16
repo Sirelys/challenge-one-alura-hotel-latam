@@ -11,6 +11,8 @@ import java.util.List;
 
 import conexion.ConexionMysql;
 import modelos.Huesped;
+import modelos.Reserva;
+import ui.ReservaTableModel;
 
 public class DatosHuesped {
 
@@ -32,6 +34,7 @@ public class DatosHuesped {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()) {
 				Huesped huesped = crearHuesped(resultSet);
+				huesped.setReserva(new DatosReserva().buscarReservaId(resultSet.getInt("IdReserva")));
 				listaHuespeds.add(huesped);
 			}
 		} catch (SQLException e) {
@@ -94,6 +97,27 @@ public class DatosHuesped {
 		}
 		return false;
 	}
+	
+	public boolean editarHuesped(Huesped huesped) {
+		this.conexion = new ConexionMysql().conexion();
+		try {
+			preparedStatement = this.conexion.prepareStatement("UPDATE hotel.huespedes SET Nombre=?, Apellido=?, FechaNacimiento=?, Nacionalidad=?, Telefono=? "
+					+ " WHERE Id=?");
+			preparedStatement.setString(1, huesped.getNombre());
+			preparedStatement.setString(2, huesped.getApellido());
+			preparedStatement.setString(3, formatter.format(huesped.getFechaNacimiento()));
+			preparedStatement.setString(4, huesped.getNacionalidad());
+			preparedStatement.setInt(5, huesped.getTelefono());
+			preparedStatement.setInt(6,huesped.getId());
+			preparedStatement.executeUpdate();
+			return true;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
 
 	private Huesped crearHuesped(ResultSet resultSet) {
 		try {
@@ -101,10 +125,25 @@ public class DatosHuesped {
 					LocalDate.parse(resultSet.getString("FechaNacimiento"), formatter),
 					resultSet.getString("Nacionalidad"), resultSet.getInt("Telefono"));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
+	public List<Huesped> filtroHuesped(String filtro){
+		this.conexion = new ConexionMysql().conexion();
+		List<Huesped> listaHuespedes = new ArrayList<Huesped>();
+		try {
+			preparedStatement = this.conexion.prepareStatement("SELECT x.* FROM hotel.huespedes x where x.Id like '"+filtro+"%'");
+			ResultSet hu = preparedStatement.executeQuery();
+			while (hu.next()) {
+				listaHuespedes.add(crearHuesped(hu));
+			}
+			return listaHuespedes;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 }
